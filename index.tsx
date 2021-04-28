@@ -44,8 +44,10 @@ export default class OTPInputView extends Component<InputProps, OTPInputViewStat
 
     componentDidMount() {
         this.copyCodeFromClipBoardOnAndroid()
-        this.bringUpKeyBoardIfNeeded()
-        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide)
+        setTimeout(() => {
+            this.bringUpKeyBoardIfNeeded()
+            this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide)                
+        }, 500);
     }
 
     componentWillUnmount() {
@@ -139,7 +141,7 @@ export default class OTPInputView extends Component<InputProps, OTPInputViewStat
         if (result.length >= pinCount) {
             onCodeFilled && onCodeFilled(result)
             this.focusField(pinCount - 1)
-            this.blurAllFields()
+            // this.blurAllFields()
         } else {
             if (text.length > 0 && index < pinCount - 1) {
                 this.focusField(index + 1)
